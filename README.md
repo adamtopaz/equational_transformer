@@ -74,3 +74,11 @@ All logs and up in the `outputs` subdirectory, based on date and time that a com
 The output folders associated to training runs should themselves have a `logs` subdirectory, which contain `tensorboard` logs for the training runs. 
 
 In other words, you can monitor the training with `tensorboard` by running `tensorboard --logdir=$REPO/outputs`.
+
+## Using the model
+
+This repository has a jupyter notebook called `play.ipynb` which illustrates how to initialize the classification model, load the trained weights from `default_trained_model.pth`, and make predictions with the model.
+This notebook also illustrates how one execute a testing run with the testing dataset.
+
+*NOTE*: `requirements.txt` does not include the necessary packages to run jupyter notebooks.
+
