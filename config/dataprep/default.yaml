@@ -1,0 +1,8 @@
+split_ratio: 0.5
+val_ratio: 0.5
+random_tokenized_equations: "random_tokenized_equations.jsonl"
+tokenized_equations: "tokenized_equations.jsonl"
+implications: "implications.jsonl"
+use_complement: false
+method: download
+base_url: "https://huggingface.co/datasets/adamtopaz/equational_dataset/resolve/main/"

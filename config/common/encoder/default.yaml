@@ -1,0 +1,11 @@
+num_layer: 4
+num_head: 2
+d_model: 64
+d_ff : 128
+dropout: 0.1
+max_len: 512
+vocab_size: 100
+num_kind: 3
+pad_token: 0
+pad_kind: 0
+kind_weight: 1e-3

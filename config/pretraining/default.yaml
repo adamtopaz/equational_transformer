@@ -1,0 +1,3 @@
+defaults:
+  - dataset: default
+  - training: default

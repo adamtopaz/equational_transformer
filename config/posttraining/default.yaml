@@ -1,0 +1,5 @@
+defaults:
+  - dataset: default
+  - model: default
+  - training: default
+state_dict: null

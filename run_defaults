@@ -1,0 +1,102 @@
+#!/bin/bash
+
+confirm() {
+    local prompt="$1"
+    local default="y" 
+
+    # Check if -y flag was used
+    if [[ "$AUTO_YES" == "true" ]]; then
+        echo "$prompt [auto-yes]"
+        return 0
+    fi
+
+    while true; do
+        read -p "$prompt [Y/n] " response
+        case $response in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            "" ) 
+                if [[ "$default" == "y" ]]; then
+                    return 0
+                else
+                    return 1
+                fi
+                ;;
+            * ) echo "Please answer y or n.";;
+        esac
+    done
+}
+
+AUTO_YES="false"
+while getopts "y" flag; do
+    case $flag in
+        y)
+            AUTO_YES="true"
+            ;;
+    esac
+done
+
+if confirm "Setting up a python venv with 'python -m venv venv'. Continue?"; then
+    python -m venv venv
+    source venv/bin/activate
+    echo "Python venv set up and activated."
+    echo ""
+else
+    echo "Skipped setting up venv. Continuing to next step."
+    echo ""
+fi
+
+if confirm "Install requirements with 'pip install -r requirements.txt'. Continue?"; then
+    pip install -r requirements.txt
+    echo "Requirements installed."
+    echo ""
+else
+    echo "Skipped installing requirements. Continuing to next step."
+    echo ""
+fi
+
+if confirm "Downloading data with 'python dataprep.py'. Continue?"; then
+    python dataprep.py
+    echo "Data downloaded."
+    echo ""
+else
+    echo "Skipped data download. Continuing to next step."
+    echo ""
+fi
+
+PRETRAINED="false"
+
+if confirm "Pretraining the encoder with 'python pretrain.py'. Continue?"; then
+    python pretrain.py
+    PRETRAINED="true"
+    echo "Encoder pretraining complete."
+    echo ""
+else
+    echo "Skipped pretraining. Continuing to next step."
+    echo ""
+fi
+
+if [[ "$PRETRAINED" == "true" ]]; then
+    if confirm "Training the classifier with 'python posttrain.py posttraining.state_dict=encoder_state_dict.pth'. Continue?"; then
+        python posttrain.py posttraining.state_dict=encoder_state_dict.pth
+        echo "Classifier training complete."
+        exit 0
+    else
+        echo "Skipped posttraining. Nothin else to do."
+        exit 0
+    fi
+fi
+
+if [[ "$PRETRAINED" == "false" ]]; then
+    if confirm "Training the classifier with 'python posttrain.py'. Continue?"; then
+        python posttrain.py
+        echo "Classifier training complete."
+        exit 0
+    else
+        echo "Skipped posttraining. Nothin else to do."
+        exit 0
+    fi
+fi
+
+exit 0
+

@@ -1,0 +1,6 @@
+datadir: "pretraining/data"
+datafile: "random_tokenized_equations.jsonl"
+pad_kind: 0
+lhs_kind : 1
+rhs_kind : 2
+max_datapoints: null

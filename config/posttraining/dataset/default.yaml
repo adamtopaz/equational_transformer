@@ -1,0 +1,9 @@
+datadir: "posttraining/data"
+equations: "tokenized_equations.jsonl"
+train: "train_impls.jsonl"
+val: "val_impls.jsonl"
+test: "test_impls.jsonl"
+pad_kind: 0
+lhs_kind : 1
+rhs_kind : 2
+max_datapoints: null

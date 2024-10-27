@@ -1,0 +1,10 @@
+.ipynb_checkpoints
+**/__pycache__
+**/venv
+**/outputs
+**/data
+**/logs
+implications.jsonl
+tokenized_equations.jsonl
+random_tokenized_equations.jsonl
+encoder_state_dict.pth
