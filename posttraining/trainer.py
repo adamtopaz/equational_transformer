@@ -199,14 +199,9 @@ def trainer(
     torch.save(pl_model.model.state_dict(), f"{logdir}/model.pth")
     log.info(f"Saved model state dict to {logdir}/model.pth")
     log.info("Testing model")
-    trainer.test(pl_model, test_dataloader)
-    log.info("Verifying and logging test accuracy")
-    num_correct = 0
-    pl_model.eval()
-    with torch.no_grad():
-        for batch in tqdm(test_dataloader):
-            eval = pl_model.eval_batch(batch)
-            num_correct += eval['correct_predictions']
-    accuracy = num_correct / len(test_dataset)
-    log.info(f"Test accuracy: {accuracy}")
+    eval_output = trainer.test(pl_model, test_dataloader)
+    log.info("Testing complete. Logging results")
+    for e in eval_output:
+        for k, v in e.items():
+            log.info(f"{k}: {v}")
 
